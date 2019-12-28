@@ -29,3 +29,7 @@ func (d deck) print() { // Set deck type to receive print function, d is instanc
 		fmt.Println(i, card)
 	}
 }
+
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
+}
