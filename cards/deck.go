@@ -54,6 +54,5 @@ func newDeckFromFile(filename string) deck {
 		os.Exit(1)                 // Exit the program
 	}
 
-	s := strings.Split(string(content), ",") // Split the string on the commas into a slice of strings
-	return deck(s)                           // Make a deck out of the slice
+	return deck(strings.Split(string(content), ",")) // Split type-converted byte slice on the string on the commas into a slice of strings
 }
