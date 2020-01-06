@@ -23,6 +23,9 @@ func main() {
 		},
 	}
 
+	// It is possible to define this by using the order of fields present in the struct definition
+	jim = person{"Alex", "Jones", contactInfo{"Alex@gmail.com", 33606}}
+
 	jim.print()
 }
 
