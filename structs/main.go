@@ -32,9 +32,20 @@ func main() {
 	alex.lastName = "Jones"
 	alex.contactInfo = contactInfo{email: "Alex@infowars.com", zipCode: 12345}
 
+	jim.updateFirstName("jimmy")
+	// Can also update the value directly if we want
+	jim.lastName = "UpdatedLastName"
 	jim.print()
 	fmt.Println("\n ")
 	alex.print()
+}
+
+// Go is a pass by value language, so when the function is called with the struct
+// go copies that value and uses the copy for the function call, rather than the original.
+// So to modify a value on the original we must use a pointer to reference the original value.
+
+func (p *person) updateFirstName(newName string) {
+	(*p).firstName = newName
 }
 
 func (p person) print() {
