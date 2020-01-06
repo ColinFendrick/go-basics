@@ -35,12 +35,14 @@ func main() {
 	// & operator creates a pointer directly to the memory location
 	jimPointer := &jim
 
-	// The & is unnecessary here, we can just use jim directly
 	jimPointer.updateFirstName("Jimmy")
+	/* The & is unnecessary here, we can just use jim directly
+	This is a shortcut in go -- we can use the root type directly
+	instead of having to get the memory value using the & syntax */
 	jim.updateFirstName("Jimmy")
 
-	// Can also update the value directly if we want
-	// Using either pointer or directly
+	/* Can also update the value directly if we want
+	Using either pointer or directly */
 	jimPointer.lastName = "UpdatedLastName"
 	jim.lastName = "UpdatedLastName"
 
@@ -49,10 +51,11 @@ func main() {
 	alex.print()
 }
 
-// Go is a pass by value language, so when the function is called with the struct
-// go copies that value and uses the copy for the function call, rather than the original.
-// So to modify a value on the original we must use a pointer to reference the original value.
-// *person means the function is taking a pointer to a person
+/* Go is a pass by value language, so when the function is called with the struct
+go copies that value and uses the copy for the function call, rather than the original.
+So to modify a value on the original we must use a pointer to reference the original value.
+*person means the function is taking a pointer to a person */
+
 func (p *person) updateFirstName(newName string) {
 	// *p looks directly at the value of the pointer address
 	(*p).firstName = newName
@@ -61,3 +64,10 @@ func (p *person) updateFirstName(newName string) {
 func (p person) print() {
 	fmt.Printf("%+v", p)
 }
+
+/* ***** NOTES ON POINTERS *****
+An ADDRESSW is the memory location
+A VALUE is the actual go value
+Turn an ADDRESS into a VALUE with *ADDRESS
+Turn a VALUE into an ADDRESS with &VALUE
+*/
