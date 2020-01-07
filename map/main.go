@@ -17,6 +17,7 @@ func main() {
 	delete(colors, "yellow") // delete() is a builtin golang fn
 
 	printMap(colors)
+	fmt.Println(colors)
 }
 
 func printMap(m map[string]string) {
@@ -24,3 +25,14 @@ func printMap(m map[string]string) {
 		fmt.Printf("Hex code for %v is %v \n", color, hex)
 	}
 }
+
+/* Map vs struct:
+1. Keys/values must be of same type in map. Values can be different in struct.
+2. Maps can be iterated over. Keys are indexed. Cannot iterate over struct.
+3. Map is a reference type. Struct is a value type. We can directly modify the map values in a func.
+4. Map does not need to know list of all keys at compile time.
+We can add initialize with zero-values and add values later.
+Struct must be defined beforehand.
+
+Map is usually for closely related properties. Struct might represent a bunch of different properties.
+*/
