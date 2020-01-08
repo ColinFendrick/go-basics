@@ -14,7 +14,7 @@ type polygon struct {
 	perimFn func(sides) float64
 }
 
-type shape interface {
+type shape interface { // This is overengineered. More for example. IRL we don't need to se an interface for this. Everything could be done with receivers.
 	area() float64
 	perim() float64
 	resize(n float64) polygon
@@ -26,7 +26,7 @@ func main() {
 		name:  "Circle",
 		edges: sides{"radius": 4.0},
 		areaFn: func(s sides) float64 {
-			return math.Pi * math.Pow(s["radius"], 2)
+			return math.Pi * math.Pow(s["radius"], 2) // Can rely on specifics of side names here since this is instance-specific
 		},
 		perimFn: func(s sides) float64 { // Circle perimeter is calculated differently
 			return math.Pi * 2 * s["radius"]
@@ -69,6 +69,7 @@ func (p polygon) perim() float64 {
 		return p.perimFn(p.edges)
 	}
 
+	// Else we just make a sum of all the edges
 	total := 0.0
 
 	for _, s := range p.edges {
@@ -79,11 +80,11 @@ func (p polygon) perim() float64 {
 }
 
 func (p polygon) area() float64 {
-	return p.areaFn(p.edges)
+	return p.areaFn(p.edges) // This kind of stuff is why I say using an interface is overengineered here
 }
 
 func (p polygon) resize(n float64) polygon {
-	newP := polygon{
+	newP := polygon{ // Dupe the old polygon, leave sides blank for now
 		name:    p.name,
 		edges:   sides{},
 		areaFn:  p.areaFn,
@@ -91,18 +92,19 @@ func (p polygon) resize(n float64) polygon {
 	}
 
 	for key, val := range p.edges {
-		newP.edges[key] = val * n
+		newP.edges[key] = val * n // Add in each edge multiplied by the scalar
 	}
 
 	return newP
 }
 
 func (p polygon) getName() string {
-	return p.name
+	return p.name // Again, overengineered. Just for example.
 }
 
-func measure(s shape, n float64) {
+func measure(s shape, n float64) { // IRL this would be another receiver, probably. This is overengineered.
 	name := s.getName()
+
 	fmt.Println(name)
 	fmt.Println("Area:", s.area())
 	fmt.Println("Perim:", s.perim())
