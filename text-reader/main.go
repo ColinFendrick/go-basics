@@ -6,15 +6,16 @@ import (
 	"os"
 )
 
-type textReader struct{}
+type textWriter struct{}
 
 func main() {
+	// You have to provide the filename as the second arg to the cli
 	if len(os.Args) != 2 {
 		fmt.Println("Please provide exactly one file to open.")
 		os.Exit(1)
 	}
 
-	tr := textReader{}
+	tw := textWriter{}
 
 	file, err := os.Open(os.Args[1])
 
@@ -23,10 +24,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	io.Copy(tr, file)
+	io.Copy(tw, file)
 }
 
-func (textReader) Write(p []byte) (n int, err error) {
+// Create the Writer implementation and have textWriter receive it
+func (textWriter) Write(p []byte) (n int, err error) {
 	fmt.Println(string(p))
 	return len(p), nil
 }
