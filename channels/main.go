@@ -13,7 +13,7 @@ func main() {
 		"http://stackoverflow.com",
 		"http://golang.org",
 		"http://amazon.com",
-		"http://notthetrumppisstapes.69nice",
+		"asdflkasfdlksajfds.asldfjsldajflskdafjsdfalkj",
 	}
 	/*
 		Create a new channel with make(chan val-type).
