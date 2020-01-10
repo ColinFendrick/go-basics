@@ -23,7 +23,7 @@ func main() {
 
 	for _, link := range links {
 		/*
-			// A "go" statement starts the execution of a function call
+			A "go" statement starts the execution of a function call
 			as an independent concurrent thread of control, or (child) goroutine,
 			within the same address space.
 		*/
@@ -34,11 +34,11 @@ func main() {
 		but does not wait for the children to complete. THis is why we need channels.
 		We have to send the child information back to the main routine.
 	*/
-	for l := range c {
-		go func(link string) {
+	for l := range c { // Wait for channel to return a value, then run body. An infinite loop that runs every time channel emits a value.
+		go func(link string) { // We don't want to pause the main routine, so we create a separate routine to house the throttling and the routines.
 			time.Sleep(5 * time.Second)
-			checkLink(link, c)
-		}(l) // Anonymous function call
+			checkLink(link, c) // We have to call the goroutine fn with l, rather than referencing l directly, so we can reference different memory locations.
+		}(l) // Function literal (anonymous function/lambda)
 	}
 }
 
@@ -47,7 +47,7 @@ func checkLink(link string, c chan string) {
 
 	if err != nil {
 		fmt.Println(link, "might be down!")
-		c <- link
+		c <- link // Send in the link to the channel
 		return
 	}
 
